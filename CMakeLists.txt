@@ -17,7 +17,10 @@ find_package(SessionLockQt REQUIRED)
 #find_package(LayerShellQt REQUIRED)
 
 qt_add_executable(appMimeApp
-  ./src/main.cpp)
+  src/main.cpp
+  src/Command.h
+  src/Command.cpp
+)
 
 # Not Format Me
 qt_add_qml_module(appMimeApp

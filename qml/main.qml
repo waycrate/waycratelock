@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import MimeApp.Command
 
 Window {
     width: 640
@@ -9,5 +10,8 @@ Window {
     Button {
         text: "sss"
         anchors.fill: parent
+        onClicked : {
+            CommandLine.UnLock()
+        }
     }
 }
