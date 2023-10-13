@@ -27,7 +27,9 @@ main(int argc, char *argv[])
         WindowElement *element = new WindowElement;
         ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(element, screen);
         element->show();
+        ExtSessionLockV1Qt::Command::instance()->LockScreen();
     });
+    ExtSessionLockV1Qt::Command::instance()->LockScreen();
 
     return app.exec();
 }

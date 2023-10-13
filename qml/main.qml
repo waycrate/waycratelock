@@ -37,9 +37,11 @@ Pane {
         hoverEnabled: true
         onEntered: {
             root.isIn = true;
+            input.focus = true
         }
         onExited: {
             root.isIn = false;
+            input.focus = false
         }
 
         ColumnLayout {
@@ -66,6 +68,16 @@ Pane {
 
             Item {
                 Layout.preferredHeight: 30
+            }
+
+            TextField {
+                id: input
+                visible: root.isIn
+                Layout.alignment: Qt.AlignHCenter
+                text: CommandLine.password
+                placeholderText: "Password"
+                echoMode: TextInput.Password
+                Layout.preferredWidth: 250
             }
 
             Button {
@@ -113,5 +125,11 @@ Pane {
                 Layout.preferredHeight: 30
             }
         }
+    }
+
+    Binding {
+        target: CommandLine
+        property: "password"
+        value: input.text
     }
 }
