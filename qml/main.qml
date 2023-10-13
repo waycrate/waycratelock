@@ -76,6 +76,9 @@ Window {
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.password
                 placeholderText: "Password"
+                onEditingFinished : {
+                    CommandLine.password = input.text
+                }
                 echoMode: TextInput.Password
                 Layout.preferredWidth: 250
             }
@@ -127,9 +130,4 @@ Window {
         }
     }
 
-    Binding {
-        target: CommandLine
-        property: "password"
-        value: input.text
-    }
 }
