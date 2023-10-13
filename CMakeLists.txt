@@ -18,8 +18,6 @@ find_package(SessionLockQt REQUIRED)
 
 qt_add_executable(appMimeApp
   src/main.cpp
-  src/WindowElement.h
-  src/WindowElement.cpp
   asserts/source.qrc
 )
 

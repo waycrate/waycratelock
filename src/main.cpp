@@ -1,5 +1,3 @@
-#include "WindowElement.h"
-
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
@@ -7,6 +5,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+#include <cstdlib>
 
 int
 main(int argc, char *argv[])
@@ -17,16 +16,37 @@ main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     auto screens = QGuiApplication::screens();
 
-    for (auto screen : screens) {
-        WindowElement *element = new WindowElement;
-        ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(element, screen);
-        element->show();
-    }
+    QQmlApplicationEngine engine;
+    const QUrl url(u"qrc:/MimeApp/qml/main.qml"_qs);
+    QObject::connect(
+      &engine,
+      &QQmlApplicationEngine::objectCreated,
+      &app,
+      [url](QObject *obj, const QUrl &objUrl) {
+          if (!obj && url == objUrl)
+              QCoreApplication::exit(-1);
+      },
+      Qt::QueuedConnection);
 
-    QObject::connect(&app, &QGuiApplication::screenAdded, &app, [](auto screen) {
-        WindowElement *element = new WindowElement;
-        ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(element, screen);
-        element->show();
+    for (auto screen : screens) {
+        engine.load(url);
+        if (QWindow *window = qobject_cast<QWindow *>(engine.rootObjects().last())) {
+            ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(window, screen);
+            window->show();
+        } else {
+            qDebug() << "Cannot get window";
+            return 0;
+        }
+    }
+    QObject::connect(&app, &QGuiApplication::screenAdded, &app, [&engine, url](auto screen) {
+        engine.load(url);
+        if (QWindow *window = qobject_cast<QWindow *>(engine.rootObjects().last())) {
+            ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(window, screen);
+            window->show();
+        } else {
+            qDebug() << "Cannot get window";
+            exit(0);
+        }
         ExtSessionLockV1Qt::Command::instance()->LockScreen();
     });
     ExtSessionLockV1Qt::Command::instance()->LockScreen();

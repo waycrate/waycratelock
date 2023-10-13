@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick
 import MimeApp
 
-Pane {
+Window {
     id: root
     property bool isIn: false
 
@@ -37,11 +37,11 @@ Pane {
         hoverEnabled: true
         onEntered: {
             root.isIn = true;
-            input.focus = true
+            input.focus = true;
         }
         onExited: {
             root.isIn = false;
-            input.focus = false
+            input.focus = false;
         }
 
         ColumnLayout {
