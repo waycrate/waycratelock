@@ -8,5 +8,6 @@ Window {
     title: qsTr("Hello World")
     Button {
         text: "sss"
+        anchors.fill: parent
     }
 }
