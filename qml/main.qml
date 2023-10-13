@@ -10,8 +10,8 @@ Window {
     Button {
         text: "Unlock"
         anchors.fill: parent
-        onClicked : {
-            CommandLine.UnLock()
+        onClicked: {
+            CommandLine.UnLock();
         }
     }
 }
