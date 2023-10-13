@@ -16,6 +16,9 @@ find_package(Qt6 COMPONENTS Quick QuickControls2 WaylandClient REQUIRED)
 
 find_package(SessionLockQt REQUIRED)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PAM pam pam_misc REQUIRED IMPORTED_TARGET)
+
 qt_add_executable(appMimeApp
   src/main.cpp
   asserts/source.qrc
@@ -43,7 +46,8 @@ target_link_libraries(appMimeApp
   Qt6::Quick
   Qt6::WaylandClient
   Qt6::QuickControls2
-  SessionLockQtInterface)
+  SessionLockQtInterface
+  PkgConfig::PAM)
 
 install(TARGETS appMimeApp
   BUNDLE DESTINATION .
