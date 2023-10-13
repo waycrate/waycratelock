@@ -17,18 +17,23 @@ find_package(SessionLockQt REQUIRED)
 
 qt_add_executable(appMimeApp
   src/main.cpp
-  src/Command.h
-  src/Command.cpp
   src/WindowElement.h
   src/WindowElement.cpp
+)
+
+target_include_directories(appMimeApp PUBLIC
+  ${CMAKE_SOURCE_DIR}/src
 )
 
 # Not Format Me
 qt_add_qml_module(appMimeApp
   URI MimeApp
   VERSION 1.0
+  SOURCES
+    src/CommandLine.h
+    src/CommandLine.cpp
   QML_FILES
-    ./qml/main.qml
+    qml/main.qml
 )
 
 set_target_properties(appMimeApp PROPERTIES

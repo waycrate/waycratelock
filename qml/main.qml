@@ -1,6 +1,5 @@
-import QtQuick
 import QtQuick.Controls
-import MimeApp.Command
+import MimeApp
 
 Pane {
     Button {

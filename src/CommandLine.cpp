@@ -1,4 +1,4 @@
-#include "Command.h"
+#include "CommandLine.h"
 
 #include <QGuiApplication>
 #include <SessionLockQt/command.h>

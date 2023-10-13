@@ -1,4 +1,3 @@
-#include "src/Command.h"
 #include "src/WindowElement.h"
 
 #include <QGuiApplication>
@@ -7,15 +6,6 @@
 #include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
 
-void
-registGlobTypes()
-{
-    qmlRegisterSingletonType<CommandLine>(
-      "MimeApp.Command", 1, 0, "CommandLine", [](QQmlEngine *, QJSEngine *) -> QObject * {
-          return new CommandLine;
-      });
-}
-
 int
 main(int argc, char *argv[])
 {
@@ -23,8 +13,6 @@ main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     auto screens = QGuiApplication::screens();
-
-    registGlobTypes();
 
     for (auto screen : screens) {
         WindowElement *element = new WindowElement;
