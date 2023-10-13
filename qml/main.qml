@@ -4,23 +4,39 @@ import QtQuick
 import MimeApp
 
 Pane {
-    ColumnLayout {
+    id: root
+    property bool isIn: false
+
+    MouseArea {
         anchors.fill: parent
-        Item {
-            Layout.fillHeight: true
+        hoverEnabled: true
+        onEntered: {
+            root.isIn = true;
         }
-        TimePanel {
-            Layout.alignment: Qt.AlignHCenter
+        onExited: {
+            root.isIn = false;
         }
-        Button {
-            Layout.alignment: Qt.AlignHCenter
-            text: "Unlock"
-            onClicked: {
-                CommandLine.UnLock();
+
+        ColumnLayout {
+            anchors.fill: parent
+            Item {
+                Layout.fillHeight: true
             }
-        }
-        Item {
-            Layout.fillHeight: true
+            TimePanel {
+                Layout.alignment: Qt.AlignHCenter
+            }
+            Button {
+                id: loginBtn
+                visible: root.isIn
+                Layout.alignment: Qt.AlignHCenter
+                text: "Unlock"
+                onClicked: {
+                    CommandLine.UnLock();
+                }
+            }
+            Item {
+                Layout.fillHeight: true
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-#include "src/WindowElement.h"
+#include "WindowElement.h"
 
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
