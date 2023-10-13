@@ -7,6 +7,10 @@ Pane {
     id: root
     property bool isIn: false
 
+    property int year
+    property int month
+    property int day
+
     property int hours
     property int minutes
 
@@ -21,6 +25,9 @@ Pane {
 
     function timeChanged() {
         var date = new Date;
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
         hours = date.getHours();
         minutes = date.getMinutes();
     }
@@ -37,6 +44,17 @@ Pane {
 
         ColumnLayout {
             anchors.fill: parent
+
+            Item {
+                Layout.preferredHeight: 30
+            }
+
+            Label {
+                text: root.year + " " + root.month + " " + root.day
+                Layout.alignment: Qt.AlignHCenter
+                font.pointSize: 30
+                font.bold: true
+            }
 
             Item {
                 Layout.fillHeight: true
