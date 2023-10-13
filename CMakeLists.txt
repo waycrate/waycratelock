@@ -11,10 +11,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt6 6.2 COMPONENTS Quick Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Quick WaylandClient REQUIRED)
 
 find_package(SessionLockQt REQUIRED)
-#find_package(LayerShellQt REQUIRED)
 
 qt_add_executable(appMimeApp
   src/main.cpp
@@ -41,8 +40,8 @@ set_target_properties(appMimeApp PROPERTIES
 
 target_link_libraries(appMimeApp
   PRIVATE
-  Qt6::Widgets
   Qt6::Quick
+  Qt6::WaylandClient
   SessionLockQtInterface)
 
 install(TARGETS appMimeApp

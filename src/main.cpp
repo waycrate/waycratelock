@@ -1,7 +1,7 @@
 #include "src/Command.h"
 #include "src/WindowElement.h"
 
-#include <QApplication>
+#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
