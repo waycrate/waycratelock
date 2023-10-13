@@ -20,6 +20,8 @@ qt_add_executable(appMimeApp
   src/main.cpp
   src/Command.h
   src/Command.cpp
+  src/WindowElement.h
+  src/WindowElement.cpp
 )
 
 # Not Format Me
