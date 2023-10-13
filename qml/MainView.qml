@@ -14,6 +14,15 @@ Page {
 
     property int hours
     property int minutes
+
+    function leftPad(number) {
+        var output = number + '';
+        while (output.length < 2) {
+            output = '0' + output;
+        }
+        return output;
+    }
+
     background: Image {
         anchors.fill: root
         source: "qrc:/image/gangdamu.png"
@@ -107,7 +116,7 @@ Page {
                 Label {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    text: root.hours
+                    text: root.leftPad(root.hours)
                     font.pointSize: 25
                     font.bold: true
                     Layout.preferredWidth: 80
@@ -122,7 +131,7 @@ Page {
                 Label {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    text: root.minutes
+                    text: root.leftPad(root.minutes)
                     font.pointSize: 25
                     font.bold: true
                     Layout.preferredWidth: 80
