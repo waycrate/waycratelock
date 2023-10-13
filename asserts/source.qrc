@@ -7,5 +7,6 @@
         <file>image/second.png</file>
         <file>image/clock.png</file>
         <file>image/clock-night.png</file>
+        <file>image/gangdamu.png</file>
     </qresource>
 </RCC>

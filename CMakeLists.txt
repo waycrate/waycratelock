@@ -35,6 +35,7 @@ qt_add_qml_module(appMimeApp
   QML_FILES
     qml/main.qml
     qml/TimePanel.qml
+    qml/MainView.qml
 )
 
 target_link_libraries(appMimeApp
