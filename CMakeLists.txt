@@ -6,12 +6,13 @@ project(MimeApp
 )
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt6 COMPONENTS Quick WaylandClient REQUIRED)
+find_package(Qt6 COMPONENTS Quick QuickControls2 WaylandClient REQUIRED)
 
 find_package(SessionLockQt REQUIRED)
 
@@ -19,6 +20,7 @@ qt_add_executable(appMimeApp
   src/main.cpp
   src/WindowElement.h
   src/WindowElement.cpp
+  asserts/source.qrc
 )
 
 target_include_directories(appMimeApp PUBLIC
@@ -34,19 +36,14 @@ qt_add_qml_module(appMimeApp
     src/CommandLine.cpp
   QML_FILES
     qml/main.qml
+    qml/TimePanel.qml
 )
-
-set_target_properties(appMimeApp PROPERTIES
-  MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-  MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-  MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-  MACOSX_BUNDLE TRUE
-  WIN32_EXECUTABLE TRUE)
 
 target_link_libraries(appMimeApp
   PRIVATE
   Qt6::Quick
   Qt6::WaylandClient
+  Qt6::QuickControls2
   SessionLockQtInterface)
 
 install(TARGETS appMimeApp

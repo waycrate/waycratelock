@@ -1,10 +1,12 @@
 #include "src/WindowElement.h"
 
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
+
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQuickStyle>
 
 int
 main(int argc, char *argv[])
@@ -12,6 +14,7 @@ main(int argc, char *argv[])
     ExtSessionLockV1Qt::Shell::useExtSessionLock();
 
     QGuiApplication app(argc, argv);
+    QQuickStyle::setStyle("Material");
     auto screens = QGuiApplication::screens();
 
     for (auto screen : screens) {
