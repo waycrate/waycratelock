@@ -4,6 +4,7 @@
 
 #include <QGuiApplication>
 #include <QTimer>
+#include <QtConcurrent>
 
 #include <mutex>
 #include <unistd.h>
@@ -11,6 +12,14 @@
 std::mutex PAM_GUARD;
 
 static PassWordInfo *PASSWORDINFO_INSTANCE = nullptr;
+
+enum PamStatus
+{
+    PamEndFailed,
+    Successed,
+    Failed,
+
+};
 
 PassWordInfo::PassWordInfo(QObject *parent)
   : QObject(parent)
@@ -39,7 +48,6 @@ handle_conversation(int num_msg,
                     struct pam_response **resp,
                     void *data)
 {
-    std::lock_guard<std::mutex> guard(PAM_GUARD);
     /* PAM expects an array of responses, one for each message */
     struct pam_response *pam_reply =
       static_cast<struct pam_response *>(calloc(num_msg, sizeof(struct pam_response)));
@@ -100,15 +108,36 @@ CommandLine::UnLock()
 void
 CommandLine::RequestUnlock()
 {
-    int pam_status = pam_authenticate(m_handle, 0);
-    if (pam_status != PAM_SUCCESS) {
-        qDebug() << "failed";
-        // TODO:
+    if (m_password.isEmpty()) {
+        m_errorMessage = "password is needed";
+        Q_EMIT errorMessageChanged();
         return;
     }
-    pam_setcred(m_handle, PAM_REFRESH_CRED);
-    if (pam_end(m_handle, pam_status)) {
-        qWarning() << "Pam end failer";
-    }
-    UnLock();
+    QtConcurrent::run([this] {
+        std::lock_guard<std::mutex> guard(PAM_GUARD);
+        int pam_status = pam_authenticate(m_handle, 0);
+        if (pam_status != PAM_SUCCESS) {
+            return PamStatus::Failed;
+        }
+        pam_setcred(m_handle, PAM_REFRESH_CRED);
+        if (pam_end(m_handle, pam_status)) {
+            qWarning() << "Pam end failer";
+            return PamStatus::PamEndFailed;
+        }
+        return PamStatus::Successed;
+    }).then([this](PamStatus value) {
+        switch (value) {
+        case PamEndFailed: {
+            qWarning() << "Pam end failer";
+            UnLock();
+        }
+        case Successed: {
+            UnLock();
+        }
+        case Failed: {
+            m_errorMessage = "password is error, failed to unlock";
+            Q_EMIT errorMessageChanged();
+        }
+        }
+    });
 }

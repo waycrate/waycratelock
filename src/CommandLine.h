@@ -13,7 +13,7 @@ public:
 
     inline QString password() { return m_password; }
 
-    void setPassword(const QString& password);
+    void setPassword(const QString &password);
 
 private:
     explicit PassWordInfo(QObject *parent = nullptr);
@@ -38,15 +38,20 @@ public:
     Q_PROPERTY(QString userName READ userName NOTIFY userNameChanged)
     inline QString userName() { return m_userName; }
 
+    Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
+    inline QString errorMessage() { return m_errorMessage; }
+
     Q_INVOKABLE void UnLock();
     Q_INVOKABLE void RequestUnlock();
 
 signals:
     void passwordChanged();
     void userNameChanged();
+    void errorMessageChanged();
 
 private:
     QString m_password;
     QString m_userName;
+    QString m_errorMessage;
     pam_handle_t *m_handle;
 };

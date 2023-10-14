@@ -52,6 +52,7 @@ Page {
         onEntered: {
             root.isIn = true;
             input.focus = true;
+            root.forceActiveFocus();
         }
         onExited: {
             root.isIn = false;
@@ -99,6 +100,17 @@ Page {
                     loginBtn.checked = true;
                     CommandLine.RequestUnlock();
                 }
+                onReleased: {
+                    loginBtn.checked = false;
+                }
+            }
+
+            Label {
+                visible: CommandLine.errorMessage !== "" && root.isIn
+                text: CommandLine.errorMessage
+                Layout.alignment: Qt.AlignHCenter
+                font.pointSize: 15
+                color: "red"
             }
 
             Button {
