@@ -126,7 +126,16 @@ CommandLine::readConfig()
         std::optional<std::string> background = tbl["background"].value<std::string>();
         m_usePam                              = usePam.value_or(true);
         if (background.has_value()) {
-            m_backgroundImagePath = QUrl::fromLocalFile(QString::fromStdString(background.value()));
+            QString backgroundPath = QString::fromStdString(background.value());
+            if (backgroundPath.startsWith("~")) {
+                backgroundPath.remove(0, 1);
+                QString home          = QDir::homePath();
+                backgroundPath        = QString("%1/%2").arg(home).arg(backgroundPath);
+                m_backgroundImagePath = QUrl::fromLocalFile(backgroundPath);
+            } else {
+                m_backgroundImagePath =
+                  QUrl::fromLocalFile(QString::fromStdString(background.value()));
+            }
         }
     } catch (const toml::parse_error &err) {
         m_errorMessage = "Something error with config file";
