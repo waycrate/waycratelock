@@ -130,13 +130,16 @@ CommandLine::RequestUnlock()
         case PamEndFailed: {
             qWarning() << "Pam end failer";
             UnLock();
+            break;
         }
         case Successed: {
             UnLock();
+            break;
         }
         case Failed: {
             m_errorMessage = "password is error, failed to unlock";
             Q_EMIT errorMessageChanged();
+            break;
         }
         }
     });
