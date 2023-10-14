@@ -25,7 +25,7 @@ Page {
 
     background: Image {
         anchors.fill: root
-        source: "qrc:/image/gangdamu.png"
+        source: CommandLine.background
         opacity: 0.6
     }
     Item {

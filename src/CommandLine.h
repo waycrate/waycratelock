@@ -44,6 +44,9 @@ public:
     Q_PROPERTY(bool usePam READ usePam NOTIFY usePamChanged)
     inline bool usePam() { return m_usePam; }
 
+    Q_PROPERTY(QUrl background READ background NOTIFY backgroundChanged)
+    inline QUrl background() { return m_backgroundImagePath; }
+
     Q_INVOKABLE void UnLock();
     Q_INVOKABLE void RequestUnlock();
 
@@ -55,6 +58,7 @@ signals:
     void userNameChanged();
     void errorMessageChanged();
     void usePamChanged();
+    void backgroundChanged();
 
 private:
     QString m_password;
@@ -62,4 +66,5 @@ private:
     QString m_errorMessage;
     pam_handle_t *m_handle;
     bool m_usePam;
+    QUrl m_backgroundImagePath;
 };

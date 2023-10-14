@@ -95,6 +95,7 @@ CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
   , m_handle(nullptr)
   , m_usePam(true)
+  , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))
 {
     m_userName = QString::fromStdString(getlogin());
     readConfig();
@@ -120,9 +121,13 @@ CommandLine::readConfig()
         return;
     }
     try {
-        auto tbl                   = toml::parse_file(configpath.toStdString());
-        std::optional<bool> usePam = tbl["usePam"].value<bool>();
-        m_usePam                   = usePam.value_or(true);
+        auto tbl                              = toml::parse_file(configpath.toStdString());
+        std::optional<bool> usePam            = tbl["needPassword"].value<bool>();
+        std::optional<std::string> background = tbl["background"].value<std::string>();
+        m_usePam                              = usePam.value_or(true);
+        if (background.has_value()) {
+            m_backgroundImagePath = QUrl::fromLocalFile(QString::fromStdString(background.value()));
+        }
     } catch (const toml::parse_error &err) {
         m_errorMessage = "Something error with config file";
     }
