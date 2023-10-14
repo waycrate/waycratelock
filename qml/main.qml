@@ -1,5 +1,5 @@
 import QtQuick
-import MimeApp
+import WayCrateLock
 
 Window {
     id: w

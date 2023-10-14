@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(MimeApp
+project(waycratelock
   VERSION 0.1
   LANGUAGES CXX
 )
@@ -20,18 +20,18 @@ find_package(SessionLockQt REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
 
-qt_add_executable(appMimeApp
+qt_add_executable(waycratelock
   src/main.cpp
   asserts/source.qrc
 )
 
-target_include_directories(appMimeApp PUBLIC
+target_include_directories(waycratelock PUBLIC
   ${CMAKE_SOURCE_DIR}/src
 )
 
 # Not Format Me
-qt_add_qml_module(appMimeApp
-  URI MimeApp
+qt_add_qml_module(waycratelock
+  URI WayCrateLock
   VERSION 1.0
   SOURCES
     src/CommandLine.h
@@ -42,7 +42,7 @@ qt_add_qml_module(appMimeApp
     qml/MainView.qml
 )
 
-target_link_libraries(appMimeApp
+target_link_libraries(waycratelock
   PRIVATE
   Qt6::Quick
   Qt6::WaylandClient
@@ -51,6 +51,6 @@ target_link_libraries(appMimeApp
   SessionLockQtInterface
   PkgConfig::PAM)
 
-install(TARGETS appMimeApp
+install(TARGETS waycratelock
   BUNDLE DESTINATION .
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

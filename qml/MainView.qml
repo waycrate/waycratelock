@@ -1,7 +1,7 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
-import MimeApp
+import WayCrateLock
 
 Page {
     id: root
