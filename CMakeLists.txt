@@ -17,7 +17,7 @@ find_package(Qt6 COMPONENTS Quick QuickControls2 WaylandClient REQUIRED)
 find_package(SessionLockQt REQUIRED)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(PAM pam pam_misc REQUIRED IMPORTED_TARGET)
+pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
 
 qt_add_executable(appMimeApp
   src/main.cpp

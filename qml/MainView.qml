@@ -103,7 +103,7 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 text: "Unlock"
                 onClicked: {
-                    CommandLine.UnLock();
+                    CommandLine.RequestUnlock();
                 }
             }
 
