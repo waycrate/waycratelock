@@ -5,7 +5,10 @@
 #include <QGuiApplication>
 #include <QTimer>
 
+#include <mutex>
 #include <unistd.h>
+
+std::mutex PAM_GUARD;
 
 static PassWordInfo *PASSWORDINFO_INSTANCE = nullptr;
 
@@ -36,6 +39,7 @@ handle_conversation(int num_msg,
                     struct pam_response **resp,
                     void *data)
 {
+    std::lock_guard<std::mutex> guard(PAM_GUARD);
     /* PAM expects an array of responses, one for each message */
     struct pam_response *pam_reply =
       static_cast<struct pam_response *>(calloc(num_msg, sizeof(struct pam_response)));
