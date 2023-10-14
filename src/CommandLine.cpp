@@ -158,7 +158,7 @@ CommandLine::UnLock()
 #ifndef DEBUG_MODE
     ExtSessionLockV1Qt::Command::instance()->unLockScreen();
 #endif
-    QGuiApplication::quit();
+    QTimer::singleShot(0, qApp, [] { QGuiApplication::quit(); });
 }
 
 void
