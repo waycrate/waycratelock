@@ -5,6 +5,12 @@ project(waycratelock
   LANGUAGES CXX
 )
 
+option(DEBUG_MODE "Debug not use sessionlock" OFF)
+
+if(DEBUG_MODE)
+  add_definitions(-DDEBUG_MODE)
+endif()
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

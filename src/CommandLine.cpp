@@ -1,6 +1,8 @@
 #include "CommandLine.h"
 
+#ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
+#endif
 
 #include <QGuiApplication>
 #include <QTimer>
@@ -153,7 +155,9 @@ CommandLine::setPassword(const QString &password)
 void
 CommandLine::UnLock()
 {
+#ifndef DEBUG_MODE
     ExtSessionLockV1Qt::Command::instance()->unLockScreen();
+#endif
     QGuiApplication::quit();
 }
 

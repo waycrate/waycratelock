@@ -1,6 +1,8 @@
+#ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
+#endif
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -11,7 +13,9 @@
 int
 main(int argc, char *argv[])
 {
+#ifndef DEBUG_MODE
     ExtSessionLockV1Qt::Shell::useExtSessionLock();
+#endif
 
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
@@ -32,7 +36,9 @@ main(int argc, char *argv[])
     for (auto screen : screens) {
         engine.load(url);
         if (QWindow *window = qobject_cast<QWindow *>(engine.rootObjects().last())) {
+#ifndef DEBUG_MODE
             ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(window, screen);
+#endif
             window->show();
         } else {
             qDebug() << "Cannot get window";
@@ -42,15 +48,21 @@ main(int argc, char *argv[])
     QObject::connect(&app, &QGuiApplication::screenAdded, &app, [&engine, url](auto screen) {
         engine.load(url);
         if (QWindow *window = qobject_cast<QWindow *>(engine.rootObjects().last())) {
+#ifndef DEBUG_MODE
             ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(window, screen);
+#endif
             window->show();
         } else {
             qDebug() << "Cannot get window";
             exit(0);
         }
+#ifndef DEBUG_MODE
         ExtSessionLockV1Qt::Command::instance()->LockScreen();
+#endif
     });
+#ifndef DEBUG_MODE
     ExtSessionLockV1Qt::Command::instance()->LockScreen();
+#endif
 
     return app.exec();
 }
