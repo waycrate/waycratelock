@@ -69,7 +69,7 @@ Page {
             Label {
                 text: root.year + " " + root.month + " " + root.day
                 Layout.alignment: Qt.AlignHCenter
-                font.pointSize: 30
+                font.pointSize: root.isIn ? 30 : 35
                 font.bold: true
             }
 
@@ -133,7 +133,7 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     text: root.leftPad(root.hours)
-                    font.pointSize: 25
+                    font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
                     Layout.preferredWidth: 80
                 }
@@ -141,14 +141,14 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     text: ":"
-                    font.pointSize: 25
+                    font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
                 }
                 Label {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     text: root.leftPad(root.minutes)
-                    font.pointSize: 25
+                    font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
                     Layout.preferredWidth: 80
                 }
