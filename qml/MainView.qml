@@ -87,7 +87,7 @@ Page {
 
             TextField {
                 id: input
-                visible: root.isIn
+                visible: root.isIn && CommandLine.usePam
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.password
                 placeholderText: "Password"

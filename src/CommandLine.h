@@ -41,17 +41,25 @@ public:
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
     inline QString errorMessage() { return m_errorMessage; }
 
+    Q_PROPERTY(bool usePam READ usePam NOTIFY usePamChanged)
+    inline bool usePam() { return m_usePam; }
+
     Q_INVOKABLE void UnLock();
     Q_INVOKABLE void RequestUnlock();
+
+private:
+    void readConfig();
 
 signals:
     void passwordChanged();
     void userNameChanged();
     void errorMessageChanged();
+    void usePamChanged();
 
 private:
     QString m_password;
     QString m_userName;
     QString m_errorMessage;
     pam_handle_t *m_handle;
+    bool m_usePam;
 };

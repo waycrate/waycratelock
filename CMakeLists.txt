@@ -8,12 +8,13 @@ project(MimeApp
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient REQUIRED)
 
+find_package(tomlplusplus REQUIRED)
 find_package(SessionLockQt REQUIRED)
 
 find_package(PkgConfig REQUIRED)

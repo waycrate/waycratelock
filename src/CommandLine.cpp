@@ -6,10 +6,27 @@
 #include <QTimer>
 #include <QtConcurrent>
 
+#include <format>
 #include <mutex>
+#include <string>
+#include <toml++/toml.h>
 #include <unistd.h>
 
+constexpr std::string CONFIG_FILE = "setting.toml";
+
+constexpr std::string CONFIGDIR = "waycratelock";
+
 std::mutex PAM_GUARD;
+
+static QString
+get_config_path()
+{
+    return QString::fromStdString(
+      std::format("{}/{}/{}",
+                  QStandardPaths::writableLocation(QStandardPaths::ConfigLocation).toStdString(),
+                  CONFIGDIR,
+                  CONFIG_FILE));
+}
 
 static PassWordInfo *PASSWORDINFO_INSTANCE = nullptr;
 
@@ -77,8 +94,13 @@ handle_conversation(int num_msg,
 CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
   , m_handle(nullptr)
+  , m_usePam(true)
 {
-    m_userName                 = QString::fromStdString(getlogin());
+    m_userName = QString::fromStdString(getlogin());
+    readConfig();
+    if (!m_usePam) {
+        return;
+    }
     const struct pam_conv conv = {
       .conv        = &handle_conversation,
       .appdata_ptr = NULL,
@@ -87,6 +109,22 @@ CommandLine::CommandLine(QObject *parent)
         qWarning() << "Cannot start pam";
         QTimer::singleShot(0, this, [this] { this->UnLock(); });
         return;
+    }
+}
+
+void
+CommandLine::readConfig()
+{
+    QString configpath = get_config_path();
+    if (!QFile(configpath).exists()) {
+        return;
+    }
+    try {
+        auto tbl                   = toml::parse_file(configpath.toStdString());
+        std::optional<bool> usePam = tbl["usePam"].value<bool>();
+        m_usePam                   = usePam.value_or(true);
+    } catch (const toml::parse_error &err) {
+        m_errorMessage = "Something error with config file";
     }
 }
 
@@ -108,11 +146,17 @@ CommandLine::UnLock()
 void
 CommandLine::RequestUnlock()
 {
+    if (!m_usePam) {
+        UnLock();
+        return;
+    }
+
     if (m_password.isEmpty()) {
         m_errorMessage = "password is needed";
         Q_EMIT errorMessageChanged();
         return;
     }
+
     QtConcurrent::run([this] {
         std::lock_guard<std::mutex> guard(PAM_GUARD);
         int pam_status = pam_authenticate(m_handle, 0);
