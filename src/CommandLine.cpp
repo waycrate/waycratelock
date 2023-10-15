@@ -14,11 +14,11 @@
 #include <toml++/toml.h>
 #include <unistd.h>
 
-constexpr std::string CONFIG_FILE = "setting.toml";
+constexpr static std::string CONFIG_FILE = "setting.toml";
 
-constexpr std::string CONFIGDIR = "waycratelock";
+constexpr static std::string CONFIGDIR = "waycratelock";
 
-std::mutex PAM_GUARD;
+static std::mutex PAM_GUARD;
 
 static QString
 get_config_path()
