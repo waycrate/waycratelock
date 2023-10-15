@@ -52,7 +52,6 @@ MediaPlayerBackend::initMediaPlayer()
             this,
             [this](const QString &service) {
                 if (service.startsWith("org.mpris.MediaPlayer2")) {
-                    // 启动了音乐播放
                     Q_EMIT serviceDeleted(service);
                 }
             });
