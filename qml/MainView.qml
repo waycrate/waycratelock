@@ -121,6 +121,55 @@ Page {
                 }
             }
 
+            Label {
+                visible: MediaPlayerBackend.hasMedia
+                text: MediaPlayerBackend.currentDisplayName
+                Layout.alignment: Qt.AlignHCenter
+                font.pointSize: 13
+                font.bold: true
+            }
+            RowLayout {
+                visible: MediaPlayerBackend.hasMedia
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 10
+
+                RoundButton {
+                    enabled: MediaPlayerBackend.canGoNext
+                    implicitWidth: 60
+                    implicitHeight: 60
+                    Layout.alignment: Qt.AlignHCenter
+                    icon.name: "go-previous"
+                    onClicked: {
+                        MediaPlayerBackend.goPre();
+                    }
+                }
+                RoundButton {
+                    enabled: MediaPlayerBackend.canPlay
+                    implicitWidth: 60
+                    implicitHeight: 60
+                    Layout.alignment: Qt.AlignHCenter
+                    icon.name: MediaPlayerBackend.playbackStatus === "Playing" ? "media-playback-pause" : "media-playback-start"
+
+                    onClicked: {
+                        if (MediaPlayerBackend.playbackStatus === "Playing") {
+                            MediaPlayerBackend.pause();
+                            return;
+                        }
+                        MediaPlayerBackend.play();
+                    }
+                }
+                RoundButton {
+                    enabled: MediaPlayerBackend.canGoNext
+                    implicitWidth: 60
+                    implicitHeight: 60
+                    Layout.alignment: Qt.AlignHCenter
+                    icon.name: "go-next"
+                    onClicked: {
+                        MediaPlayerBackend.goNext();
+                    }
+                }
+            }
+
             Item {
                 Layout.fillHeight: true
             }

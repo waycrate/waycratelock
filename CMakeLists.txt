@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient REQUIRED)
+find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
 find_package(SessionLockQt REQUIRED)
@@ -42,6 +42,8 @@ qt_add_qml_module(waycratelock
   SOURCES
     src/CommandLine.h
     src/CommandLine.cpp
+    src/MediaPlayerBackend.h
+    src/MediaPlayerBackend.cpp
   QML_FILES
     qml/main.qml
     qml/TimePanel.qml
@@ -54,6 +56,7 @@ target_link_libraries(waycratelock
   Qt6::WaylandClient
   Qt6::QuickControls2
   Qt6::Concurrent
+  Qt6::DBus
   SessionLockQtInterface
   PkgConfig::PAM)
 
