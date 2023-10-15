@@ -121,6 +121,10 @@ Page {
                 }
             }
 
+            Item {
+                Layout.preferredHeight: 20
+            }
+
             Label {
                 visible: MediaPlayerBackend.hasMedia
                 text: MediaPlayerBackend.currentDisplayName
@@ -128,6 +132,7 @@ Page {
                 font.pointSize: 13
                 font.bold: true
             }
+
             RowLayout {
                 visible: MediaPlayerBackend.hasMedia
                 Layout.alignment: Qt.AlignHCenter
