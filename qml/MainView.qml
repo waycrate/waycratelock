@@ -97,11 +97,7 @@ Page {
                 echoMode: TextInput.Password
                 Layout.preferredWidth: 250
                 onAccepted: {
-                    loginBtn.checked = true;
                     CommandLine.RequestUnlock();
-                }
-                onReleased: {
-                    loginBtn.checked = false;
                 }
             }
 
