@@ -122,7 +122,7 @@ Page {
             }
 
             Item {
-                Layout.preferredHeight: 20
+                Layout.fillHeight: true
             }
 
             Label {
@@ -176,7 +176,7 @@ Page {
             }
 
             Item {
-                Layout.fillHeight: true
+                Layout.preferredHeight: 40
             }
 
             RowLayout {
