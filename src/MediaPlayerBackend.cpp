@@ -40,13 +40,11 @@ MediaPlayerBackend::initMediaPlayer()
         }
     });
     connect(interface,
-            &QDBusConnectionInterface::serviceOwnerChanged,
+            &QDBusConnectionInterface::serviceRegistered,
             this,
-            [this](const QString &service, const QString &, const QString &newOwner) {
-                if (service.startsWith("org.mpris.MediaPlayer2") && !newOwner.isEmpty()) {
+            [this](const QString &service) {
+                if (service.startsWith("org.mpris.MediaPlayer2")) {
                     initSignalServer(service);
-                } else {
-                    Q_EMIT serviceDeleted(service);
                 }
             });
     connect(interface,
@@ -67,7 +65,8 @@ MediaPlayerBackend::initSignalServer(const QString &server)
 {
     MediaPlayerInterface *interface = new MediaPlayerInterface(
       server, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
-    if (m_service.isEmpty() && m_playBackStatus != "Playing") {
+    if ((m_service.isEmpty() && m_playBackStatus != "Playing") ||
+        m_playBackStatus != "Playing" && interface->playbackStatus() == "Playing") {
         m_playBackStatus     = interface->playbackStatus();
         m_service            = server;
         m_canPlay            = interface->canPlay();
