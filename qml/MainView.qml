@@ -109,11 +109,13 @@ Page {
                 color: "red"
             }
 
-            Button {
+            RoundButton {
                 id: loginBtn
                 visible: root.isIn
+                implicitWidth: 60
+                implicitHeight: 60
                 Layout.alignment: Qt.AlignHCenter
-                text: "Unlock"
+                icon.name: "unlock"
                 onClicked: {
                     CommandLine.RequestUnlock();
                 }
