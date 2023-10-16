@@ -4,11 +4,11 @@
 #include <SessionLockQt/command.h>
 #endif
 
+#include <QDate>
 #include <QGuiApplication>
+#include <QLocale>
 #include <QTimer>
 #include <QtConcurrent>
-#include <QLocale>
-#include <QDate>
 
 #include <format>
 #include <mutex>
@@ -111,7 +111,8 @@ CommandLine::CommandLine(QObject *parent)
       .conv        = &handle_conversation,
       .appdata_ptr = NULL,
     };
-    if (pam_start("waycratelock", m_userName.toLocal8Bit().data(), &conv, &m_handle) != PAM_SUCCESS) {
+    if (pam_start("waycratelock", m_userName.toLocal8Bit().data(), &conv, &m_handle) !=
+        PAM_SUCCESS) {
         qWarning() << "Cannot start pam";
         QTimer::singleShot(0, this, [this] { this->UnLock(); });
         return;
@@ -128,7 +129,7 @@ CommandLine::readConfig()
     try {
         auto tbl                              = toml::parse_file(configpath.toStdString());
         std::optional<bool> usePam            = tbl["needPassword"].value<bool>();
-        std::optional<std::string> background = tbl["background"].value<std::string>();
+        std::optional<std::string> background = tbl["background"]["path"].value<std::string>();
         m_usePam                              = usePam.value_or(true);
         if (background.has_value()) {
             QString backgroundPath = QString::fromStdString(background.value());
