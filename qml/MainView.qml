@@ -67,7 +67,7 @@ Page {
             }
 
             Label {
-                text: root.year + " " + root.month + " " + root.day
+                text: CommandLine.currentDate
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: root.isIn ? 30 : 35
                 font.bold: true

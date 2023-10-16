@@ -7,6 +7,8 @@
 #include <QGuiApplication>
 #include <QTimer>
 #include <QtConcurrent>
+#include <QLocale>
+#include <QDate>
 
 #include <format>
 #include <mutex>
@@ -95,6 +97,7 @@ handle_conversation(int num_msg,
 
 CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
+  , m_currentDate(QLocale().toString(QDate::currentDate()))
   , m_handle(nullptr)
   , m_usePam(true)
   , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))

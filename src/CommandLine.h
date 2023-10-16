@@ -31,6 +31,9 @@ class CommandLine final : public QObject
 public:
     explicit CommandLine(QObject *parent = nullptr);
 
+    Q_PROPERTY(QString currentDate READ currentDate NOTIFY currentDateChanged)
+    inline QString currentDate() { return m_currentDate; }
+
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
     inline QString password() { return m_password; }
     void setPassword(const QString &password);
@@ -54,6 +57,7 @@ private:
     void readConfig();
 
 signals:
+    void currentDateChanged();
     void passwordChanged();
     void userNameChanged();
     void errorMessageChanged();
@@ -61,6 +65,7 @@ signals:
     void backgroundChanged();
 
 private:
+    QString m_currentDate;
     QString m_password;
     QString m_userName;
     QString m_errorMessage;
