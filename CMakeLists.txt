@@ -66,4 +66,6 @@ target_link_libraries(waycratelock
   SessionLockQtInterface
   PkgConfig::PAM)
 
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION /etc/pam.d)
+
 install(TARGETS waycratelock DESTINATION ${CMAKE_INSTALL_BINDIR})

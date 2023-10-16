@@ -1,6 +1,6 @@
 _pkgname=waycratelock
 pkgname=waycratelock-git
-pkgver=r41.d95d488
+pkgver=r42.5ef4f32
 pkgrel=1
 pkgdesc="waycratelock"
 url="https://github.com/waycrate/waycratelock"

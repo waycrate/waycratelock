@@ -111,7 +111,7 @@ CommandLine::CommandLine(QObject *parent)
       .conv        = &handle_conversation,
       .appdata_ptr = NULL,
     };
-    if (pam_start("swaylock", m_userName.toLocal8Bit().data(), &conv, &m_handle) != PAM_SUCCESS) {
+    if (pam_start("waycratelock", m_userName.toLocal8Bit().data(), &conv, &m_handle) != PAM_SUCCESS) {
         qWarning() << "Cannot start pam";
         QTimer::singleShot(0, this, [this] { this->UnLock(); });
         return;
