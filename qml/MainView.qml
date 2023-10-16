@@ -25,6 +25,7 @@ Page {
 
     background: Image {
         anchors.fill: root
+        fillMode: Image.PreserveAspectCrop
         source: CommandLine.background
         opacity: 0.6
     }
