@@ -41,7 +41,6 @@ target_include_directories(waycratelock PUBLIC
   ${CMAKE_SOURCE_DIR}/src
 )
 
-# Not Format Me
 qt_add_qml_module(waycratelock
   URI WayCrateLock
   VERSION 1.0
