@@ -50,6 +50,9 @@ public:
     Q_PROPERTY(QUrl background READ background NOTIFY backgroundChanged)
     inline QUrl background() { return m_backgroundImagePath; }
 
+    Q_PROPERTY(double opacity READ opacity NOTIFY opacityChanged)
+    inline double opacity() { return m_opacity; }
+
     Q_INVOKABLE void UnLock();
     Q_INVOKABLE void RequestUnlock();
 
@@ -62,6 +65,7 @@ signals:
     void userNameChanged();
     void errorMessageChanged();
     void usePamChanged();
+    void opacityChanged();
     void backgroundChanged();
 
 private:
@@ -72,4 +76,5 @@ private:
     pam_handle_t *m_handle;
     bool m_usePam;
     QUrl m_backgroundImagePath;
+    double m_opacity;
 };

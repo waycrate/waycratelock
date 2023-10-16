@@ -27,7 +27,7 @@ Page {
         anchors.fill: root
         fillMode: Image.PreserveAspectCrop
         source: CommandLine.background
-        opacity: 0.6
+        opacity: CommandLine.opacity
     }
     Item {
         Timer {

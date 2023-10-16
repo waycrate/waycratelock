@@ -101,6 +101,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_handle(nullptr)
   , m_usePam(true)
   , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))
+  , m_opacity(0.6)
 {
     m_userName = QString::fromStdString(getlogin());
     readConfig();
@@ -130,6 +131,8 @@ CommandLine::readConfig()
         auto tbl                              = toml::parse_file(configpath.toStdString());
         std::optional<bool> usePam            = tbl["needPassword"].value<bool>();
         std::optional<std::string> background = tbl["background"]["path"].value<std::string>();
+        std::optional<double> opacity          = tbl["background"]["opacity"].value<float>();
+        m_opacity                             = opacity.value_or(0.6);
         m_usePam                              = usePam.value_or(true);
         if (background.has_value()) {
             QString backgroundPath = QString::fromStdString(background.value());
