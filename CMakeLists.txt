@@ -18,6 +18,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX /usr)
+endif ()
+
+include(GNUInstallDirs)
+
 find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
@@ -60,6 +66,4 @@ target_link_libraries(waycratelock
   SessionLockQtInterface
   PkgConfig::PAM)
 
-install(TARGETS waycratelock
-  BUNDLE DESTINATION .
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS waycratelock DESTINATION ${CMAKE_INSTALL_BINDIR})
