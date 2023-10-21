@@ -7,7 +7,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
-#include <QTimer>
 #include <QWindow>
 #include <cstdlib>
 
@@ -46,16 +45,6 @@ main(int argc, char *argv[])
             return 0;
         }
     }
-
-    QObject::connect(&app, &QGuiApplication::screenRemoved, &app, [&app](auto screen) {
-        if (app.screens().length() == 0) {
-#ifndef DEBUG_MODE
-            ExtSessionLockV1Qt::Command::instance()->unLockScreen();
-#endif
-            QTimer::singleShot(0, qApp, [] { QGuiApplication::quit(); });
-        }
-    });
-
     QObject::connect(&app, &QGuiApplication::screenAdded, &app, [&engine, url](auto screen) {
         engine.load(url);
         if (QWindow *window = qobject_cast<QWindow *>(engine.rootObjects().last())) {
