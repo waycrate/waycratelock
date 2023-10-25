@@ -62,7 +62,7 @@ target_link_libraries(waycratelock
   Qt6::QuickControls2
   Qt6::Concurrent
   Qt6::DBus
-  SessionLockQtInterface
+  SessionLockQt::Interface
   PkgConfig::PAM)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/pam.d)
