@@ -72,6 +72,12 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: root.isIn ? 30 : 35
                 font.bold: true
+                Behavior on font.pointSize {
+                    enabled: true
+                    SmoothedAnimation {
+                        velocity: 70
+                    }
+                }
             }
 
             Item {
@@ -189,6 +195,12 @@ Page {
                     font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
                     Layout.preferredWidth: 80
+                    Behavior on font.pointSize {
+                        enabled: true
+                        SmoothedAnimation {
+                            velocity: 70
+                        }
+                    }
                 }
                 Label {
                     horizontalAlignment: Text.AlignHCenter
@@ -196,6 +208,12 @@ Page {
                     text: ":"
                     font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
+                    Behavior on font.pointSize {
+                        enabled: true
+                        SmoothedAnimation {
+                            velocity: 70
+                        }
+                    }
                 }
                 Label {
                     horizontalAlignment: Text.AlignHCenter
@@ -204,6 +222,12 @@ Page {
                     font.pointSize: root.isIn ? 30 : 35
                     font.bold: true
                     Layout.preferredWidth: 80
+                    Behavior on font.pointSize {
+                        enabled: true
+                        SmoothedAnimation {
+                            velocity: 70
+                        }
+                    }
                 }
             }
 
