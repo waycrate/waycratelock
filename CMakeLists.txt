@@ -58,6 +58,7 @@ qt_add_qml_module(waycratelock
 target_link_libraries(waycratelock
   PRIVATE
   Qt6::Quick
+  Qt6::WaylandClientPrivate
   Qt6::WaylandClient
   Qt6::QuickControls2
   Qt6::Concurrent

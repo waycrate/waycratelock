@@ -93,6 +93,7 @@ Page {
             }
 
             TextField {
+                objectName: "input"
                 id: input
                 visible: root.isIn && CommandLine.usePam
                 Layout.alignment: Qt.AlignHCenter
