@@ -14,6 +14,8 @@
 #include <QQuickItem>
 #include <cstdlib>
 
+using namespace Qt::StringLiterals;
+
 QtWaylandClient::QWaylandWindow *oldWindow = nullptr;
 
 int
@@ -28,7 +30,7 @@ main(int argc, char *argv[])
     auto screens = QGuiApplication::screens();
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/WayCrateLock/qml/main.qml"_qs);
+    const QUrl url(u"qrc:/WayCrateLock/qml/main.qml"_s);
     QObject::connect(
       &engine,
       &QQmlApplicationEngine::objectCreated,
