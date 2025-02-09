@@ -24,7 +24,8 @@ endif ()
 
 include(GNUInstallDirs)
 
-find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus REQUIRED)
+find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus
+             REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
 find_package(SessionLockQt REQUIRED)
@@ -66,6 +67,7 @@ target_link_libraries(waycratelock
   SessionLockQt::Interface
   PkgConfig::PAM)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/pam.d)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION
+        ${CMAKE_INSTALL_SYSCONFDIR}/pam.d)
 
 install(TARGETS waycratelock DESTINATION ${CMAKE_INSTALL_BINDIR})
