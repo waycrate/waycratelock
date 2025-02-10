@@ -37,7 +37,7 @@ static PassWordInfo *PASSWORDINFO_INSTANCE = nullptr;
 enum PamStatus
 {
     PamEndFailed,
-    Successed,
+    Successded,
     Failed,
 
 };
@@ -190,18 +190,18 @@ CommandLine::RequestUnlock()
         }
         pam_setcred(m_handle, PAM_REFRESH_CRED);
         if (pam_end(m_handle, pam_status)) {
-            qWarning() << "Pam end failer";
+            qWarning() << "Pam end failure";
             return PamStatus::PamEndFailed;
         }
-        return PamStatus::Successed;
+        return PamStatus::Successded;
     }).then([this](PamStatus value) {
         switch (value) {
         case PamEndFailed: {
-            qWarning() << "Pam end failer";
+            qWarning() << "Pam end failure";
             UnLock();
             break;
         }
-        case Successed: {
+        case Successded: {
             UnLock();
             break;
         }
