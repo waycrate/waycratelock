@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: create build user
         run: |
-          pacman -S --needed --noconfirm sudo # Install sudo
+          pacman -Syu --needed --noconfirm sudo # Install sudo
           useradd builduser -m # Create the builduser
           passwd -d builduser # Delete the builduser's password
           printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers # Allow the builduser passwordless sudo
