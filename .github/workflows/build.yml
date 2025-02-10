@@ -18,6 +18,12 @@ jobs:
     container:
       image: archlinux:latest
     steps:
+      - name: create build user
+        run: |
+          pacman -S --needed --noconfirm sudo # Install sudo
+          useradd builduser -m # Create the builduser
+          passwd -d builduser # Delete the builduser's password
+          printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers # Allow the builduser passwordless sudo
       - uses: actions/checkout@v4
       - name: Install Packages
         run: |
@@ -26,7 +32,7 @@ jobs:
       - name: Install session-lock
         run: |
           cd asserts
-          makepkg
+          sudo -u builduser makepkg
           pacman -U *.pkg.tar.zst
           cd ..
       - name: Build
