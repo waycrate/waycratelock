@@ -1,4 +1,4 @@
-name: build lib
+name: build bin
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
           chown -R builduser:builduser asserts
           cd asserts
           sudo -u builduser makepkg
-          pacman -U *.pkg.tar.zst
+          pacman -U --noconfirm *.pkg.tar.zst
           cd ..
       - name: Build
         run: |
