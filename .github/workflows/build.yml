@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    name: "build lib"
+    name: "build"
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
@@ -22,7 +22,7 @@ jobs:
       - name: Install Packages
         run: |
           pacman -Syu --noconfirm base-devel git nasm jq ninja cpio wget unzip cmake sudo
-          pacman -Syu --noconfirm qt6-wayland qt6-declarative wayland-protocols
+          pacman -Syu --noconfirm qt6-wayland qt6-declarative wayland-protocols tomlplusplus
       - name: create build user
         run: |
           useradd builduser -m # Create the builduser
