@@ -22,7 +22,7 @@ jobs:
       - name: Install Packages
         run: |
           pacman -Syu --noconfirm base-devel git nasm jq ninja cpio wget unzip cmake sudo
-          pacman -Syu --noconfirm qt6-wayland qt6-declarative
+          pacman -Syu --noconfirm qt6-wayland qt6-declarative wayland-protocols
       - name: create build user
         run: |
           useradd builduser -m # Create the builduser
