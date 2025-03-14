@@ -10,28 +10,13 @@
 #include <QTimer>
 #include <QtConcurrent>
 
-#include <format>
+#include "config.h"
 #include <mutex>
 #include <string>
 #include <toml++/toml.h>
 #include <unistd.h>
 
-constexpr static std::string CONFIG_FILE = "setting.toml";
-
-constexpr static std::string CONFIGDIR = "waycratelock";
-
 static std::mutex PAM_GUARD;
-
-static QString
-get_config_path()
-{
-    return QString::fromStdString(
-      std::format("{}/{}/{}",
-                  QStandardPaths::writableLocation(QStandardPaths::ConfigLocation).toStdString(),
-                  CONFIGDIR,
-                  CONFIG_FILE));
-}
-
 static PassWordInfo *PASSWORDINFO_INSTANCE = nullptr;
 
 enum PamStatus
@@ -131,7 +116,7 @@ CommandLine::readConfig()
         auto tbl                              = toml::parse_file(configpath.toStdString());
         std::optional<bool> usePam            = tbl["needPassword"].value<bool>();
         std::optional<std::string> background = tbl["background"]["path"].value<std::string>();
-        std::optional<double> opacity          = tbl["background"]["opacity"].value<float>();
+        std::optional<double> opacity         = tbl["background"]["opacity"].value<float>();
         m_opacity                             = opacity.value_or(0.6);
         m_usePam                              = usePam.value_or(true);
         if (background.has_value()) {
@@ -141,6 +126,14 @@ CommandLine::readConfig()
                 QString home          = QDir::homePath();
                 backgroundPath        = QString("%1/%2").arg(home).arg(backgroundPath);
                 m_backgroundImagePath = QUrl::fromLocalFile(backgroundPath);
+
+                if (QFile::exists(backgroundPath)) {
+                    m_backgroundImagePath = QUrl::fromLocalFile(backgroundPath);
+                } else {
+                    qWarning() << "WARN: Background file not found: " << backgroundPath << "**";
+                    m_backgroundImagePath = QUrl("qrc:/image/gangdamu.png");
+                }
+
             } else {
                 m_backgroundImagePath =
                   QUrl::fromLocalFile(QString::fromStdString(background.value()));

@@ -35,7 +35,8 @@ pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
 
 qt_add_executable(waycratelock
   src/main.cpp
-  asserts/source.qrc
+  assets/source.qrc
+  assets/resource.qrc
 )
 
 target_include_directories(waycratelock PUBLIC
