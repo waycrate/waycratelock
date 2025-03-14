@@ -1,12 +1,12 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
 #include <QString>
 #include <QTextStream>
-#include <iostream>
 
 #define WAYCRATE_LOCK_DEF_CONF_PATH "assets/config/setting.toml"
 
@@ -27,14 +27,12 @@ ensureConfigFile()
     QString configPath = get_config_path();
 
     if (!QFile::exists(configPath)) {
-        std::cout << "-- Config file not found, creating default: " << configPath.toStdString()
-                  << std::endl;
+        qDebug() << "-- Config file not found, creating default:" << configPath;
         QDir().mkpath(QFileInfo(configPath).absolutePath());
 
         QFile defaultConfigFile(WAYCRATE_LOCK_DEF_CONF_PATH);
         if (!defaultConfigFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            std::cerr << "Error: Default config file missing at " << WAYCRATE_LOCK_DEF_CONF_PATH
-                      << std::endl;
+            qCritical() << "Error: Default config file missing at" << WAYCRATE_LOCK_DEF_CONF_PATH;
             return;
         }
 
@@ -44,7 +42,7 @@ ensureConfigFile()
             out << QTextStream(&defaultConfigFile).readAll();
             configFile.close();
         } else {
-            std::cerr << "Error: Failed to create " << configPath.toStdString() << std::endl;
+            qCritical() << "Error: Failed to create" << configPath;
         }
     }
 }
