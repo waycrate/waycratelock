@@ -3,7 +3,7 @@ needPassword = false
 
 [background]
 # Path to the background image (can be absolute or relative)
-path = "~/Pictures/picture.png"
+# path = "~/Pictures/picture.png"
 
 # Opacity level for the background image (between 0.0 and 1.0)
 opacity = 0.91
