@@ -31,7 +31,7 @@ jobs:
       - name: Install session-lock
         run: |
           chown -R builduser:builduser assets
-          cd asserts
+          cd assets
           sudo -u builduser makepkg
           pacman -U --noconfirm *.pkg.tar.zst
           cd ..
