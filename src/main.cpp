@@ -1,17 +1,18 @@
-#include <private/qwaylandwindow_p.h>
-#include <private/qwaylandsurface_p.h>
 #include <private/qwaylandinputdevice_p.h>
+#include <private/qwaylandsurface_p.h>
+#include <private/qwaylandwindow_p.h>
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
 #endif
 
+#include "config.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQuickItem>
 #include <QQuickStyle>
 #include <QQuickWindow>
-#include <QQuickItem>
 #include <cstdlib>
 
 using namespace Qt::StringLiterals;
@@ -25,6 +26,7 @@ main(int argc, char *argv[])
     ExtSessionLockV1Qt::Shell::useExtSessionLock();
 #endif
 
+    ensureConfigFile();
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
     auto screens = QGuiApplication::screens();
@@ -50,14 +52,16 @@ main(int argc, char *argv[])
         }
         auto input = window->findChild<QQuickItem *>("input");
         QObject::connect(input, &QQuickItem::focusChanged, input, [input](auto focus) {
-            if (!focus) 
+            if (!focus)
                 return;
             auto focusWindow = input->window();
             auto wFocusWindow =
-                dynamic_cast<QtWaylandClient::QWaylandWindow *>(focusWindow->handle());
+              dynamic_cast<QtWaylandClient::QWaylandWindow *>(focusWindow->handle());
             wFocusWindow->display()->handleWindowActivated(wFocusWindow);
-            if (wFocusWindow->display()->defaultInputDevice() && wFocusWindow->display()->defaultInputDevice()->keyboard()) {
-                wFocusWindow->display()->defaultInputDevice()->keyboard()->mFocus = wFocusWindow->waylandSurface();
+            if (wFocusWindow->display()->defaultInputDevice() &&
+                wFocusWindow->display()->defaultInputDevice()->keyboard()) {
+                wFocusWindow->display()->defaultInputDevice()->keyboard()->mFocus =
+                  wFocusWindow->waylandSurface();
             }
             if (oldWindow && oldWindow != wFocusWindow) {
                 oldWindow->display()->handleWindowDeactivated(oldWindow);
