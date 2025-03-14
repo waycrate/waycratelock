@@ -8,10 +8,9 @@
 #include <QString>
 #include <QTextStream>
 
-#define WAYCRATE_LOCK_DEF_CONF_PATH "assets/config/setting.toml"
-
-constexpr static const char *CONFIG_FILE = "setting.toml";
-constexpr static const char *CONFIGDIR   = "waycratelock";
+constexpr static const char *CONFIG_FILE                 = "setting.toml";
+constexpr static const char *CONFIGDIR                   = "waycratelock";
+constexpr static const char *WAYCRATE_LOCK_DEF_CONF_PATH = ":/config/setting.toml";
 
 static QString
 get_config_path()
