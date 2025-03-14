@@ -126,6 +126,14 @@ CommandLine::readConfig()
                 QString home          = QDir::homePath();
                 backgroundPath        = QString("%1/%2").arg(home).arg(backgroundPath);
                 m_backgroundImagePath = QUrl::fromLocalFile(backgroundPath);
+
+                if (QFile::exists(backgroundPath)) {
+                    m_backgroundImagePath = QUrl::fromLocalFile(backgroundPath);
+                } else {
+                    qWarning() << "WARN: Background file not found: " << backgroundPath << "**";
+                    m_backgroundImagePath = QUrl("qrc:/image/gangdamu.png");
+                }
+
             } else {
                 m_backgroundImagePath =
                   QUrl::fromLocalFile(QString::fromStdString(background.value()));

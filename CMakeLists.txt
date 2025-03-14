@@ -33,10 +33,6 @@ find_package(SessionLockQt REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
 
-qt_add_resources(waycratelock_resources
-  FILES assets/config/setting.toml
-)
-
 qt_add_executable(waycratelock
   src/main.cpp
   assets/source.qrc
