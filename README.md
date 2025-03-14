@@ -11,7 +11,7 @@ Base on [qt-session-lock](https://github.com/waycrate/qt-session-lock)
 
 WayCrateLock reads configuration from `$XDG_CONFIG_HOME/waycratelock/setting.toml` file ($XDG_CONFIG_HOME is typically `$HOME/.config/` for most Linux systems)
 
-Here is an example TOML file [setting.toml](https://github.com/waycratelock/blob/master/assets/config/setting.toml)
+Here is an example TOML file [setting.toml](./assets/config/setting.toml)
 
 ## Help needed
 
