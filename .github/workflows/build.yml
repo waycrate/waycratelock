@@ -30,7 +30,7 @@ jobs:
           printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers # Allow the builduser passwordless sudo
       - name: Install session-lock
         run: |
-          chown -R builduser:builduser asserts
+          chown -R builduser:builduser assets
           cd asserts
           sudo -u builduser makepkg
           pacman -U --noconfirm *.pkg.tar.zst
