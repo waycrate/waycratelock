@@ -199,7 +199,7 @@ CommandLine::RequestUnlock()
             break;
         }
         case Failed: {
-            m_errorMessage = "password is error, failed to unlock";
+            m_errorMessage = "Incorrect password given!";
             Q_EMIT errorMessageChanged();
             break;
         }
