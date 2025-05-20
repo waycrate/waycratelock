@@ -8,6 +8,8 @@
 #endif
 
 #include "config.h"
+#include "lockadaptor.h"
+#include <QDebug>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
@@ -28,6 +30,20 @@ main(int argc, char *argv[])
 
     ensureConfigFile();
     QGuiApplication app(argc, argv);
+
+    LockBackend backend;
+    LockAdaptor adaptor(&backend);
+
+    bool registerServerSucceed =
+      QDBusConnection::sessionBus().registerService(u"org.waycrate.lock"_s);
+
+    bool registerObjectSucceed =
+      QDBusConnection::sessionBus().registerObject(u"/org/waycrate/lock"_s, &backend);
+
+    if (!registerObjectSucceed || !registerServerSucceed) {
+        qWarning() << "another waycratelock is running";
+        return -1;
+    }
     QQuickStyle::setStyle("Material");
     auto screens = QGuiApplication::screens();
 

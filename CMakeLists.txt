@@ -42,6 +42,13 @@ target_include_directories(waycratelock PUBLIC
   ${CMAKE_SOURCE_DIR}/src
 )
 
+qt_add_dbus_adaptor(
+  lockBackend
+  ./misc/org.waycrate.lock.xml
+  ./src/DBusBackend.h
+  LockBackend
+)
+
 qt_add_qml_module(waycratelock
   URI WayCrateLock
   VERSION 1.0
@@ -50,6 +57,9 @@ qt_add_qml_module(waycratelock
     src/CommandLine.cpp
     src/MediaPlayerBackend.h
     src/MediaPlayerBackend.cpp
+    src/DBusBackend.h
+    src/DBusBackend.cpp
+    ${lockBackend}
   QML_FILES
     qml/main.qml
     qml/TimePanel.qml

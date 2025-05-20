@@ -1,0 +1,4 @@
+<interface name="org.waycrate.lock">
+    <property name="version" type="u" access="read"></property>
+</interface>
+
