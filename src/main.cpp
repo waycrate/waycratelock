@@ -3,7 +3,6 @@
 #include <private/qwaylandwindow_p.h>
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
-#include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
 #endif
 
