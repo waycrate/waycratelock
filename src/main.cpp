@@ -24,10 +24,6 @@ QtWaylandClient::QWaylandWindow *oldWindow = nullptr;
 int
 main(int argc, char *argv[])
 {
-#ifndef DEBUG_MODE
-    ExtSessionLockV1Qt::Shell::useExtSessionLock();
-#endif
-
     ensureConfigFile();
     QGuiApplication app(argc, argv);
 

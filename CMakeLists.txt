@@ -33,6 +33,7 @@ find_package(SessionLockQt REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
+pkg_check_modules(XKBCOMMON xkbcommon REQUIRED IMPORTED_TARGET)
 
 qt_add_executable(waycratelock
   src/main.cpp
