@@ -1,10 +1,12 @@
 import QtQuick
 import WayCrateLock
 
-Window {
+WlSessionLock {
     id: w
 
-    MainView {
-        anchors.fill: parent
+    WlSessionLockSurface {
+        MainView {
+            anchors.fill: parent
+        }
     }
 }
