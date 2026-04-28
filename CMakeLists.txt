@@ -60,8 +60,6 @@ qt_add_qml_module(waycratelock
     src/MediaPlayerBackend.cpp
     src/DBusBackend.h
     src/DBusBackend.cpp
-    src/SessionLock.h
-    src/SessionLock.cpp
     ${lockBackend}
   QML_FILES
     qml/main.qml

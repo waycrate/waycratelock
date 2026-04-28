@@ -1,5 +1,5 @@
 import QtQuick
-import WayCrateLock
+import WayCrate.SessionLock
 
 WlSessionLock {
     id: w

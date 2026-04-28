@@ -75,7 +75,7 @@ WlSessionLock::setSurfaceComponent(QQmlComponent *surfaceComponent)
 
     // NOTE: init start
     initScreens();
-    ExtSessionLockV1Qt::Command::instance()->LockScreen();
+
     m_lock = true;
     Q_EMIT lockStateChanged();
 }
@@ -144,25 +144,8 @@ void
 WlSessionLockSurface::setScreen(QScreen *screen)
 {
     ExtSessionLockV1Qt::Window::registerWindowFromQtScreen(m_window, screen);
-    auto input = m_window->findChild<QQuickItem *>("input");
-    QObject::connect(input, &QQuickItem::focusChanged, input, [input](auto focus) {
-        if (!focus)
-            return;
-        auto focusWindow  = input->window();
-        auto wFocusWindow = dynamic_cast<QtWaylandClient::QWaylandWindow *>(focusWindow->handle());
-        wFocusWindow->display()->handleWindowActivated(wFocusWindow);
-        if (wFocusWindow->display()->defaultInputDevice() &&
-            wFocusWindow->display()->defaultInputDevice()->keyboard()) {
-            wFocusWindow->display()->defaultInputDevice()->keyboard()->mFocus =
-              wFocusWindow->waylandSurface();
-        }
-        if (oldWindow && oldWindow != wFocusWindow) {
-            oldWindow->display()->handleWindowDeactivated(oldWindow);
-        }
-        oldWindow = wFocusWindow;
-    });
-
     m_window->show();
+    ExtSessionLockV1Qt::Command::instance()->LockScreen();
 }
 
 QQmlListProperty<QObject>
