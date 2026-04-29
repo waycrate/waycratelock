@@ -1,6 +1,3 @@
-#include <private/qwaylandinputdevice_p.h>
-#include <private/qwaylandsurface_p.h>
-#include <private/qwaylandwindow_p.h>
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/window.h>
