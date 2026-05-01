@@ -25,7 +25,7 @@ endif ()
 include(GNUInstallDirs)
 
 find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient
-  WaylandClientPrivate DBus
+  WaylandClientPrivate DBus Qml
   REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
@@ -70,7 +70,6 @@ qt_add_qml_module(waycratelock
 target_link_libraries(waycratelock
   PRIVATE
   Qt6::Quick
-  Qt6::WaylandClientPrivate
   Qt6::WaylandClient
   Qt6::QuickControls2
   Qt6::Concurrent
