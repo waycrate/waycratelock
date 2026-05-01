@@ -25,7 +25,7 @@ endif ()
 include(GNUInstallDirs)
 
 find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient
-  WaylandClientPrivate DBus
+  WaylandClientPrivate DBus Qml
   REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
