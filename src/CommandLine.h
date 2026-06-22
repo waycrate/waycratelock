@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QTimer>
 #include <security/pam_appl.h>
 
 class PassWordInfo final : public QObject
@@ -77,4 +78,5 @@ private:
     bool m_usePam;
     QUrl m_backgroundImagePath;
     double m_opacity;
+    QTimer *m_timer;
 };

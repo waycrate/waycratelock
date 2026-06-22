@@ -24,7 +24,6 @@ enum PamStatus
     PamEndFailed,
     Successded,
     Failed,
-
 };
 
 PassWordInfo::PassWordInfo(QObject *parent)
@@ -87,6 +86,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_usePam(true)
   , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))
   , m_opacity(0.6)
+  , m_timer(new QTimer(this))
 {
     m_userName = QString::fromStdString(getlogin());
     readConfig();
@@ -103,6 +103,11 @@ CommandLine::CommandLine(QObject *parent)
         QTimer::singleShot(0, this, [this] { this->UnLock(); });
         return;
     }
+    connect(m_timer, &QTimer::timeout, this, [this] {
+        m_currentDate = QLocale().toString(QDate::currentDate());
+        Q_EMIT currentDateChanged();
+    });
+    m_timer->start(1000);
 }
 
 void
